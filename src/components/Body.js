@@ -1,6 +1,7 @@
 import RestaurantCard from "./Restaurantcard";
 import restaurantList from "../utils/mockdata";
 import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
 
 const filterData = (searchInput, listofRestaurant) => {
     const filterData = listofRestaurant.filter((listofRestaurant) => {
@@ -11,7 +12,7 @@ const filterData = (searchInput, listofRestaurant) => {
 
 const Body = () => {
 
-    const [listofRestaurant, setlistofRestaurant] = useState(restaurantList);
+    const [listofRestaurant, setlistofRestaurant] = useState([]);
     const [searchInput, setsearchInput] = useState("");
 
     useEffect(() => {
@@ -24,7 +25,9 @@ const Body = () => {
         setlistofRestaurant(json?.data?.cards[2]?.data?.data?.cards);
     }
 
-    return(
+
+
+    return ( restaurantList.length === 0 )? <Shimmer/> : (
         <div className='body'>
             <div className='filter'>
                 <button className='filter-btn'
